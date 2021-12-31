@@ -1,31 +1,52 @@
 import { Component } from "react/cjs/react.production.min";
 
-class Rect extends Component {
-    color = 'black';
-    radius = '0';
+export class ClickRect extends Component {
+    color = 'white';
+    borderRadius = '2px';
+    size = '20';
+    data = [];
+    area = {
+        width: "500px",
+        height: "500px",
+        border: "1px white solid",
+    }
 
-    constructor(props) {
+    constructor (props) {
         super();
-        this.x = props.x;
-        this.y = props.y;
-        this.color = props.c;
-        this.radius = props.r;
-        this.width = props.width;
-        this.height = props.height;
-        this.style = {
-            backgroundColor: this.color,
+        this.state = {
+            data: this.data
+        };
+        this.addRect = this.addRect.bind(this);
+    }
+
+    draw(data) {
+        const style = {
             position: 'absolute',
-            left: this.x + "px",
-            top: this.y + "px",
-            borderRadius: this.radius + "px",
-            width: this.width + "px",
-            height: this.height + "px",
-        }
+            backgroundColor: this.color,
+            borderRadius: this.borderRadius + 'px',
+            width: this.size + 'px',
+            height: this.size + 'px',
+            left: data.x,
+            top: data.y,
+        };
+        return <div style={style} key={data.id}></div>;
+    }
+
+    addRect(e) {
+        const id = this.data.length;
+        this.data.push({id: id, x: e.pageX, y: e.pageY})
+        this.setState(state => ({
+            data: this.data
+        }))
     }
 
     render() {
-        return <div style={this.style}></div>
+        return <div>
+            <div style={this.area} onClick={this.addRect}>
+                {this.data.map(value => this.draw(value))}
+            </div>
+        </div>
     }
 }
 
-export default Rect
+export default ClickRect

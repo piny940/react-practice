@@ -7,6 +7,7 @@ class Message extends Component {
 
     constructor(props) {
         super()
+        this.msg2 = props.children;
         this.state = {
             msg: this.defaultMessage,
             counter: 0,
@@ -42,6 +43,7 @@ class Message extends Component {
         return <div>
                 <div>{this.state.msg}</div>
                 <div>Counter: {this.state.counter}</div>
+                <div>{this.msg2}</div>
                 <button className='btn btn-primary' onClick={this.doAction}>Click!</button>
             </div>
     }
