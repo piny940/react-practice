@@ -1,6 +1,10 @@
 import { Component } from "react/cjs/react.production.min"
 
 
+function mappingState(state) {
+    return state;
+}
+
 class Message extends Component {
     exCount = 0;
     defaultMessage = 'Hello World';
@@ -44,9 +48,12 @@ class Message extends Component {
                 <div>{this.state.msg}</div>
                 <div>Counter: {this.state.counter}</div>
                 <div>{this.msg2}</div>
+                <div>store's message: {this.props.message}</div>
                 <button className='btn btn-primary' onClick={this.doAction}>Click!</button>
             </div>
     }
 }
+
+Message = connect(mappingState)(Message)
 
 export default Message
